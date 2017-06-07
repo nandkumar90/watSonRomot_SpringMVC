@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ePassport Seva Bot</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style type="text/css">
+body {
+	background-image: url("resources/img/back.png"));
+}
+
+#wrapper {
+	position: absolute;
+	left: 0;
+}
+
+#text24 {
+	font-size: 24px;
+	color: #999;
+	float: left;
+	font-weight: bold;
+	line-height: 36px;
+}
+
+#text12 {
+	font-size: 12px;
+	color: #000;
+	font-weight: bold;
+}
+
+#icon {
+	height: 36px;
+	width: 36px;
+	display: inline;
+	vertical-align: middle;
+}
+
+.chat {
+	width: 50%;
+}
+
+.robo-chat {
+	margin-left: 0;
+}
+
+.human-chat {
+	margin-left: 50%;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 450px
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	padding-top: 20px;
+	background-color: #f1f1f1;
+	height: 100%;
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	background-color: #555;
+	color: white;
+	padding: 15px;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+
+.container-frame {
+	min-width: 600px !important;
+	min-height: 500px !important;
+	padding: 20px;
+}
+.header{ 
+	width:100%;
+	height:200px;
+	max-height:200px;
+	padding:20px 0;
+	border:1px solid red;
+}
+.header-image img{
+	height:150px;
+}
+.title{margin: 10px 0;}
+
+.title,.subtitle{
+	font-weight:bolder;
+}
+.description{
+	font-size:16px;
+	font-weight:bold;
+}
+
+.frame-content {
+	min-width: 80%;
+	min-height: 500px;
+}
+.main-form{
+	margin:10px auto;
+	max-width:500px;
+	width:500px;
+}
+
+</style>
+<link rel="stylesheet" href="resources/css/template-style.css">
+
+<script type="text/javascript" src="resources/js/angular.js"></script>
+<script type="text/javascript" src="resources/js/angular-sanitize.js"></script>
+
+<script type="text/javascript" src="resources/js/angular-ui-router.js"></script>
+
+<script type="text/javascript" src="resources/js/storeCtrl.js"></script>
+
+<script src="https://d2xwmjc4uy2hr5.cloudfront.net/im-embed/im-embed.min.js"></script>
+
+
+<script type="text/javascript" src="resources/js/app.js"></script>
+
+</head>
+
+<body ng-app='theka'>
+
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">ePassport ROBO</a>
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li class=""><a ui-sref="home">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Projects</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
+							ePassport Seva Robot</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div ui-view>
+		<div class="container-fluid text-center">
+			<div class="row content">
+				<div class="col-sm-2 sidenav">
+					<p>
+						<a href="#">Api</a>
+					</p>
+					<p>
+						<a href="#">About</a>
+					</p>
+					<p>
+						<a href="#">Contact</a>
+					</p>
+				</div>
+				<div class="col-sm-8 text-left"
+					style="background-image: url('resources/img/back.png');"
+					ng-controller='MainCtrl'>
+					<!-- MAIN -->
+					<div ng-show="frameData" class="frame-content">
+<!-- 						<iframe src="http://localhost:8080/ePassportSeva/#!/newform" -->
+<!-- 							name="myIframe"></iframe> -->
+
+						<div class="container container-frame">
+							<div class="header">
+									<div class="col-md-1 header-image">
+										<img src="resources/img/satmeyJayate.jpg">
+									</div>
+									<div class="col-md-11 header-content text-center">
+										<h3 class="title">PASSPORT APPLICATION FORM</h1>
+										<h4 class="subtitle">Government of India, Ministry of External Affairs</h4>
+										<p class="description">Please read the Passport Instruction Booklet carefully
+											before filling the form. Furnishing of incorrect information/
+											suppression of information would lead to rejection of
+											application and would attract penal provisions as prescribed
+											under the Passports Act, 1967. Please produce your original
+											documents at the time of submission of the form. All fields
+											marked with (*) are mandatory to fill.</p>
+									</div>
+							</div>
+							<div class="col-md-12">
+								<form class="form-horizontal main-form">
+									<div class="form-group">
+										<label for="exampleInputEmail1">Email address</label> <input
+											type="email" class="form-control" id="exampleInputEmail1"
+											placeholder="Email">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputPassword1">Password</label> <input
+											type="password" class="form-control"
+											id="exampleInputPassword1" placeholder="Password">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputFile">File input</label> <input
+											type="file" id="exampleInputFile">
+										<p class="help-block">Example block-level help text here.</p>
+									</div>
+									<div class="checkbox">
+										<label> <input type="checkbox"> Check me out
+										</label>
+									</div>
+									<button type="submit" class="btn btn-default">Submit</button>
+								</form>
+							</div>
+
+						</div>
+						<!-- /.container -->
+						<button ng-click="setiFrameClose()">Close Window</button>
+						<div class="btn-group">
+			    <a href="https://www.instamojo.com/@nandkumar90/la57645cdf758477cb9fadcd57356abd1/" class="btn btn-white btn-default active" rel="im-checkout" data-behaviour="link" data-style="flat" data-text="Pay Passport Registration Fee" >
+			        <i class="fa fa-cog" aria-hidden="true"></i> Payment Fee
+			    </a></div>
+					</div>
+					<div class="panel-body" style="overflow-y: scroll; height: 500px"
+						ng-show="!frameData">
+						<div class="panel panel-default chat" ng-repeat="chat in chats"
+							ng-class="chat.sender === 'ROBOT'? 'robo-chat' : 'human-chat'">
+							<div class="panel-body" ng-click="setiFrame()">
+
+								<span ng-bind-html="chat.msg"></span> <img
+									ng-if="chat.sender === 'ROBOT'" src="resources/img/robo.png"
+									id="icon" /> <img ng-if="chat.sender !== 'ROBOT'"
+									src="resources/img/indianRobo.png" id="icon" />
+
+							</div>
+						</div>
+						<div class="container">
+							<div class="row"
+								style="position: fixed; bottom: 0px; width: 100%;">
+								<div class="col-md-7">
+									<textarea class="form-control" rows="3"
+										placeholder="Chat with ePassport advisor" ng-model="msg">
+									</textarea>
+									<select ng-model="lang">
+										<option value="en" selected="true">English</option>
+										<option value="hi">Hindi</option>
+									</select>
+								</div>
+								<div class="col-md-7">
+									<button type="button" class="btn btn-primary btn-lg btn-block"
+										ng-click="sendMsg()">Ask Ur Question ?</button>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+</html>
