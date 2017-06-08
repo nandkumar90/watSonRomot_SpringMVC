@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
@@ -29,15 +31,19 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
+import com.journaldev.spring.discovery.Discovery;
 //import com.google.gson.Gson;
 import com.journaldev.spring.model.Employee;
 import com.journaldev.spring.model.Inputtext;
+import com.journaldev.spring.model.LangTransLation;
 import com.journaldev.spring.model.Language;
 import com.journaldev.spring.model.Output;
 import com.journaldev.spring.model.RequestBodyText;
 import com.journaldev.spring.model.RevResponse;
 import com.journaldev.spring.model.Robot;
 import com.journaldev.spring.model.Text;
+import com.journaldev.spring.model.Translation;
+import com.journaldev.spring.model.Translationresponse;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -60,7 +66,6 @@ public class EmployeeController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Authorization", "Basic YjhkYTdhYjUtNTdhYy00MjQxLTk0YTktNmE1MDM0YmYyOWEzOndnTUZoeTZJVnl3aQ==");
 		HttpEntity<String> request = new HttpEntity<String>(headers);
-
 		RestTemplate restTemplate=new RestTemplate();
 	    ResponseEntity<String> result = restTemplate.exchange("https://gateway.watsonplatform.net/conversation/api/v1/workspaces/5cc74062-e7ec-4057-a94d-4ae112ca6462?version=2017-05-06&include_count=false", HttpMethod.GET, request, String.class);
 		
@@ -139,6 +144,57 @@ public class EmployeeController {
     	   
     	    response=revResponse.getOutString();
         }
+        
+        if(null !=selectedLang && !selectedLang.isEmpty() &&selectedLang.equalsIgnoreCase("fr"))
+        {
+        	 MultiValueMap<String, Object> headersFr = new LinkedMultiValueMap<String, Object>();
+        	 headersFr.add("Accept", "application/json");
+        	 headersFr.add("Content-Type", "application/json");
+        	 headersFr.add("Authorization", "Basic NjVmMGM2ODMtZGI3MC00NDJjLTllMmUtY2M0ODJmYzMyZTdlOktxdEtXUnBXdGxEWg==");
+        	 headersFr.add("cache-control", "no-cache");
+        	 
+     		 LangTransLation langFr=new LangTransLation();
+     		 langFr.setModel_id("en-fr");
+     		 langFr.setSource("en");
+     		 langFr.setTarget("fr");
+     		 langFr.setText(response);
+             String strUser="{\"model_id\":\"en-fr\",\"source\":\"en\",\"target\":\"fr\",\"text\":[\""+response+"\"]}";
+        	 Gson gs=new Gson();
+        	 System.out.println(gs.toJson(langFr));
+        	 HttpEntity requestLang = new HttpEntity(strUser,headersFr);
+
+     		
+    		RestTemplate restTemplateLang=new RestTemplate();
+    		String resultLang = restTemplateLang.postForObject("https://watson-api-explorer.mybluemix.net/language-translator/api/v2/translate", requestLang, String.class);
+    		Translationresponse tranresponse=gson.fromJson(resultLang,Translationresponse.class);
+    		List<Translation> translation=tranresponse.getTranslations();
+    		Translation tresponse=translation.get(0);
+    		response =tresponse.getTranslation();
+        }
+        
+      //  if(response.equalsIgnoreCase("discovery")){
+        	 MultiValueMap<String, Object> headersdis = new LinkedMultiValueMap<String, Object>();
+        	 
+        	 headersdis.add("Accept", "application/json");
+        	 headersdis.add("Content-Type", "application/json");
+        	 headersdis.add("Authorization", "Basic MTg0ZjU2NGUtOWM3Yy00OTA5LWEwY2QtMGYzYjkwMmUzM2Y3OnVza0JWWlpBaUsyQQ==");
+        	 headersdis.add("cache-control", "no-cache");
+        	 HttpEntity requestdis= new HttpEntity(headersdis);
+
+     		RestTemplate restTemplateLang=new RestTemplate();
+
+     		ResponseEntity<String> resultLang = restTemplateLang.exchange("https://gateway.watsonplatform.net/discovery/api/v1/environments/02e67059-ac04-4490-a165-f2b2fd7c75be/collections/a6f88ca5-97b0-429b-957e-58f950770b1d/query?version=2016-11-07&query=apply%20for%20visa&count=&offset=&aggregation=&filter=&passages=false&highlight=true&return=", HttpMethod.GET,requestdis, String.class);
+     		String objects = resultLang.getBody();
+     		Discovery discovery=gson.fromJson(objects, Discovery.class);
+     	
+//     		JSONArray jsonObject3=  objectToJSONArray(str);
+//     		for (int i = 0; i < jsonObject3.length(); ++i) {
+//     		    JSONObject rec = jsonObject3.getJSONObject(i);
+//     		    int id = rec.getInt("id");
+//     		   
+//     		}
+
+      //  }
         robot.setMsg(response);
         robot.setSender("ROBOT");
         robot.setConversation_id(key);
@@ -155,6 +211,34 @@ public class EmployeeController {
 				  .body("{\r\n  \"input\": {\r\n    \"text\": \"hello\"\r\n  },\r\n \"alternate_intents\": true\r\n}\r\n")
 				  .asString();
 		return response;
+	}
+	
+	public static JSONObject objectToJSONObject(Object object){
+	    Object json = null;
+	    JSONObject jsonObject = null;
+	    try {
+	        json = new JSONTokener(object.toString()).nextValue();
+	    } catch (JSONException e) {
+	        e.printStackTrace();
+	    }
+	    if (json instanceof JSONObject) {
+	        jsonObject = (JSONObject) json;
+	    }
+	    return jsonObject;
+	}
+
+	public static JSONArray objectToJSONArray(Object object){
+	    Object json = null;
+	    JSONArray jsonArray = null;
+	    try {
+	        json = new JSONTokener(object.toString()).nextValue();
+	    } catch (JSONException e) {
+	        e.printStackTrace();
+	    }
+	    if (json instanceof JSONArray) {
+	        jsonArray = (JSONArray) json;
+	    }
+	    return jsonArray;
 	}
 	
 	
