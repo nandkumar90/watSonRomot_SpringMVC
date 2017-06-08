@@ -57,6 +57,12 @@
 			<artifactId>aspectjrt</artifactId>
 			<version>${org.aspectj-version}</version>
 		</dependency>
+		
+		 <dependency>
+	    <groupId>org.jsoup</groupId>
+	    <artifactId>jsoup</artifactId>
+	    <version>1.10.2</version>
+	    </dependency>
         <!-- gson -->
                 <dependency>
                      <groupId>com.google.code.gson</groupId>

@@ -91,7 +91,7 @@ footer {
 	min-height: 500px !important;
 	padding: 20px;
 }
-.header{ 
+.header{
 	width:100%;
 	height:200px;
 	max-height:200px;
@@ -138,7 +138,7 @@ footer {
 .mastercard{background-image:url(resources/img/french.jpg);}
 .british{background-image:url(resources/img/british.jpg);}
 
-.cc-selector-2 input:active +.drinkcard-cc, .cc-selector input:active +.drinkcard-cc{opacity: .9;}
+.cc-selector-2 input:active +.drinkcard-cc, .cc-selector input:active +.drinkcard-cc{opacity: 0;}
 .cc-selector-2 input:checked +.drinkcard-cc, .cc-selector input:checked +.drinkcard-cc{
     -webkit-filter: none;
        -moz-filter: none;
@@ -149,17 +149,17 @@ footer {
     background-size:contain;
     background-repeat:no-repeat;
     display:inline-block;
-    width:100px;height:70px;
+    width:48px;height:48px;
     -webkit-transition: all 100ms ease-in;
        -moz-transition: all 100ms ease-in;
             transition: all 100ms ease-in;
-    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
-       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-            filter: brightness(1.8) grayscale(1) opacity(.7);
+    -webkit-filter: brightness(1)  ;
+       -moz-filter: brightness(1) ;
+            filter: brightness(1) ;
 }
 .drinkcard-cc:hover{
-    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
-       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(0);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(0);
             filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
 
@@ -191,39 +191,13 @@ p{margin-bottom:.3em;}
 	 <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
+
+         </button>
          <img src="resources/img/pp-logo.png" />
-    </div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav">
-					<li class=""><a ui-sref="home">Home</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Projects</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span>
-							ePassport Seva Robot</a></li>
-				</ul>
-			</div>
-		</div>
+
 	</nav>
 	<div ui-view>
-		<div class="container-fluid text-center">
-			<div class="row content">
-				<div class="col-sm-2 sidenav">
-					<p>
-						<a href="#">Api</a>
-					</p>
-					<p>
-						<a href="#">About</a>
-					</p>
-					<p>
-						<a href="#">Contact</a>
-					</p>
-				</div>
+
 				<div class="col-sm-8 text-left"
 					style="background-image: url('resources/img/back.png');"
 					ng-controller='MainCtrl'>
@@ -282,7 +256,7 @@ p{margin-bottom:.3em;}
 			        <i class="fa fa-cog" aria-hidden="true"></i> Payment Fee
 			    </a></div>
 					</div>
-					<div class="panel-body" style="overflow-y: scroll; height: 500px"
+					<div class="panel-body" style="overflow-y: auto; height: 1500px"
 						ng-show="!frameData">
 						<div class="panel panel-default chat" ng-repeat="chat in chats"
 							ng-class="chat.sender === 'ROBOT'? 'robo-chat' : 'human-chat'">
@@ -290,8 +264,7 @@ p{margin-bottom:.3em;}
 
 								<span ng-bind-html="chat.msg"></span> <img
 									ng-if="chat.sender === 'ROBOT'" src="resources/img/passport_advisor.png"
-									id="icon" /> <img ng-if="chat.sender !== 'ROBOT'"
-									src="resources/img/indianRobo.png" id="icon" />
+									id="icon" />
 
 							</div>
 						</div>
@@ -299,11 +272,10 @@ p{margin-bottom:.3em;}
 							<div class="row"
 								style="position: fixed; bottom: 0px; width: 100%;">
 								<div class="col-md-7">
-									<textarea class="form-control" rows="3"
+									<textarea class="form-control" rows="2"
 										placeholder="Chat with ePassport advisor" ng-model="msg">
 									</textarea>
-									
-									<div class="cc-selector-2">
+									<div class="cc-selector-2" style="width:50%">
 									        <input id="visa2" type="radio" name="creditcard" value="hi" ng-model="lang" />
 									        <label class="drinkcard-cc visa" for="visa2"></label>
 									        <input id="mastercard2" type="radio" name="creditcard" value="fr" ng-model="lang" checked="checked"/>
@@ -314,7 +286,8 @@ p{margin-bottom:.3em;}
 								</div>
 								<div class="col-md-7">
 									<button type="button" class="btn btn-primary btn-lg btn-block"
-										ng-click="sendMsg()">Ask Ur Question ?</button>
+										ng-click="sendMsg()">Ask e-Passport Advisor</button><button type="button" class="btn btn-primary btn-lg btn-block"
+										ng-click="sendMsg()" style="background-color:green;">Clear</button>
 								</div>
 							</div>
 						</div>

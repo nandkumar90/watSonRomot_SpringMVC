@@ -48,6 +48,11 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 /**
  * Handles requests for the Employee service.
  */
@@ -153,7 +158,7 @@ public class EmployeeController {
         	 headersFr.add("Authorization", "Basic NjVmMGM2ODMtZGI3MC00NDJjLTllMmUtY2M0ODJmYzMyZTdlOktxdEtXUnBXdGxEWg==");
         	 headersFr.add("cache-control", "no-cache");
         	 
-     		 LangTransLation langFr=new LangTransLation();
+     		LangTransLation langFr=new LangTransLation();
      		 langFr.setModel_id("en-fr");
      		 langFr.setSource("en");
      		 langFr.setTarget("fr");
@@ -172,7 +177,7 @@ public class EmployeeController {
     		response =tresponse.getTranslation();
         }
         
-      //  if(response.equalsIgnoreCase("discovery")){
+        if(response.equalsIgnoreCase("discovery")){
         	 MultiValueMap<String, Object> headersdis = new LinkedMultiValueMap<String, Object>();
         	 
         	 headersdis.add("Accept", "application/json");
@@ -186,15 +191,20 @@ public class EmployeeController {
      		ResponseEntity<String> resultLang = restTemplateLang.exchange("https://gateway.watsonplatform.net/discovery/api/v1/environments/02e67059-ac04-4490-a165-f2b2fd7c75be/collections/a6f88ca5-97b0-429b-957e-58f950770b1d/query?version=2016-11-07&query=apply%20for%20visa&count=&offset=&aggregation=&filter=&passages=false&highlight=true&return=", HttpMethod.GET,requestdis, String.class);
      		String objects = resultLang.getBody();
      		Discovery discovery=gson.fromJson(objects, Discovery.class);
-     	
-//     		JSONArray jsonObject3=  objectToJSONArray(str);
-//     		for (int i = 0; i < jsonObject3.length(); ++i) {
-//     		    JSONObject rec = jsonObject3.getJSONObject(i);
-//     		    int id = rec.getInt("id");
-//     		   
-//     		}
+     		response=discovery.getResults()[0].getHtml();
+            Document doc = Jsoup.parse(response);
+            String tablecells=doc.toString();
+            Elements tds=doc.select("title");  // select the tds from your table
+            for(Element td : tds) {  // loop through them
+                if(td.text().contains("no title")) {  // found the one you want
+                    td.text("Best Matched Document");          // Replace with your text
+                }
+            }
+          
+            response=doc.toString();
 
-      //  }
+     		
+       }
         robot.setMsg(response);
         robot.setSender("ROBOT");
         robot.setConversation_id(key);
