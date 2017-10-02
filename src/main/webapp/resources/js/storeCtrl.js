@@ -1,6 +1,7 @@
 var app=angular.module('storeModule',['ngSanitize']);
 app.controller('MainCtrl', ['$scope','mainService',function($scope, mainService) {
 	  var data = {};
+	  $scope.lang = br;
 	  $scope.frameData=false;
 		  $scope.setiFrame = function () {
 			  $scope.frameData=true;
