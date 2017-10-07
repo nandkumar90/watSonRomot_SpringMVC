@@ -2,11 +2,11 @@ package com.journaldev.spring.ivanium.dao;
 
 import java.util.List;
 
-import com.journaldev.spring.model.Employee;
+import com.journaldev.ivanium.model.FactIngredientDTO;
 
 public interface CustomerDao {
-	public List<Employee> getAllEmployees();
+	public List<FactIngredientDTO> getAllFactFragment() throws Exception;
 	
-	public void saveEmployee(Employee employee);
+	public void saveEmployee(FactIngredientDTO factIngredient);
 
 }

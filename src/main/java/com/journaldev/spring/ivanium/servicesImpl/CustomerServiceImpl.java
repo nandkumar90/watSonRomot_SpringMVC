@@ -2,18 +2,30 @@ package com.journaldev.spring.ivanium.servicesImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.journaldev.ivanium.model.FactIngredientDTO;
+import com.journaldev.ivanium.response.model.FactIngredient;
+import com.journaldev.spring.ivanium.converter.DTOTOResponsePojoConverter;
+import com.journaldev.spring.ivanium.dao.CustomerDao;
 import com.journaldev.spring.ivanium.services.CustomerService;
-import com.journaldev.spring.model.Employee;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
+	@Autowired
+	CustomerDao customerDao;
 
 	@Override
-	public List<Employee> getAllEmployees() {
+	public List<FactIngredient> getAllFactFragment() throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		List<FactIngredientDTO>factIngredientDTOs= customerDao.getAllFactFragment();
+		List<FactIngredient> ingredient=DTOTOResponsePojoConverter.ConvertFactFragmentDTOtoFactFragment(factIngredientDTOs);
+		return ingredient;
 	}
+
+
+	
+	
 
 }

@@ -2,8 +2,9 @@ package com.journaldev.spring.ivanium.services;
 
 import java.util.List;
 
-import com.journaldev.spring.model.Employee;
+import com.journaldev.ivanium.model.FactIngredientDTO;
+import com.journaldev.ivanium.response.model.FactIngredient;
 
 public interface CustomerService {
-	public List<Employee> getAllEmployees();
+	public List<FactIngredient> getAllFactFragment() throws Exception;
 }
