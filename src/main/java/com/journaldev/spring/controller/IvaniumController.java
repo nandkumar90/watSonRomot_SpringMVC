@@ -21,7 +21,7 @@ public class IvaniumController {
 private static final Logger logger = LoggerFactory.getLogger(IvaniumController.class);
 	
 	 @Autowired
-	  private CustomerService customerService;
+	 public CustomerService customerService;
 
 	@RequestMapping(value = EmpRestURIConstants.CUSTOMER_DETAILS, method = RequestMethod.GET)
 	public @ResponseBody Response<FactIngredient> getCustomerDetail() throws Exception {
@@ -29,6 +29,14 @@ private static final Logger logger = LoggerFactory.getLogger(IvaniumController.c
 		Response<FactIngredient> response=new Response<FactIngredient>();
 		response.setContent(FactIngredients);
 		return response;
+	}
+
+	public CustomerService getCustomerService() {
+		return customerService;
+	}
+
+	public void setCustomerService(CustomerService customerService) {
+		this.customerService = customerService;
 	}	
 	
 }

@@ -1,5 +1,7 @@
 package com.journaldev.ivanium.model;
 
+import javax.persistence.Entity;
+
 public class FactIngredientDTO {
 	private String PK_Frac_Ingredients;
 	private String FK_Well;

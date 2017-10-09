@@ -14,7 +14,7 @@ import com.journaldev.spring.ivanium.services.CustomerService;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 	@Autowired
-	CustomerDao customerDao;
+	public CustomerDao customerDao;
 
 	@Override
 	public List<FactIngredient> getAllFactFragment() throws Exception {
@@ -24,8 +24,12 @@ public class CustomerServiceImpl implements CustomerService {
 		return ingredient;
 	}
 
+	public CustomerDao getCustomerDao() {
+		return customerDao;
+	}
 
-	
-	
+	public void setCustomerDao(CustomerDao customerDao) {
+		this.customerDao = customerDao;
+	}
 
 }

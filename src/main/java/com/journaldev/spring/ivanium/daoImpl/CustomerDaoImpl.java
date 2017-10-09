@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.journaldev.ivanium.model.FactIngredientDTO;
@@ -19,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Repository
-@Transactional
+@Component
 public class CustomerDaoImpl implements CustomerDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomerDaoImpl.class);
